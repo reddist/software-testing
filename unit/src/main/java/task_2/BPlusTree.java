@@ -1,4 +1,4 @@
-package ru.ifmo.tree;
+package task_2;
 
 import lombok.*;
 
@@ -103,7 +103,7 @@ public class BPlusTree {
 
         Node<E> splitRight() {
             var entrySet = new TreeSet<E>();
-            double impreciseAmount = ((double) /* TODO NODE_CAPACITY*/ 7)  / 2.0;
+            double impreciseAmount = ((double) /* TODO NODE_CAPACITY*/ 6)  / 2.0;
             int amount = (int) Math.ceil(impreciseAmount);
             for (int i = 0; i < amount; i++) {
                 entrySet.add(entries.pollLast());
@@ -121,7 +121,7 @@ public class BPlusTree {
 
         void add(E e) {
             entries.add(e);
-            if (entries.size() == 7 /* TODO NODE_CAPACITY*/) {
+            if (entries.size() == 6 /* TODO NODE_CAPACITY*/) {
                 split();
             }
         }

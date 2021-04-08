@@ -1,4 +1,4 @@
-package ru.ifmo.tree;
+package task_2;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,7 @@ public class BPlusTreeTest {
 
     @Before
     public void setup() {
-        tree = new BPlusTree(7);
+        tree = new BPlusTree(6);
     }
 
     @Test
@@ -26,9 +26,9 @@ public class BPlusTreeTest {
     }
 
     @Test
-    public void insertSixCheckNoSplit() {
-        for (int i = 0; i < 6; i++) {
-            tree.insert(6);
+    public void insertFiveCheckNoSplit() {
+        for (int i = 0; i < 5; i++) {
+            tree.insert(5);
         }
         var expected = BPlusTree.LeafNode.class;
         var actual = tree.getRoot().getClass();
@@ -36,8 +36,8 @@ public class BPlusTreeTest {
     }
 
     @Test
-    public void insertSeven_checkRootIsNode_checkLeafNodeSplit() {
-        for (int i = 0; i < 7; i++) {
+    public void insertSix_checkRootIsNode_checkLeafNodeSplit() {
+        for (int i = 0; i < 6; i++) {
             tree.insert(i);
         }
 
@@ -65,46 +65,46 @@ public class BPlusTreeTest {
                 .stream()
                 .map(BPlusTree.Node.Entry::getValue)
                 .collect(Collectors.toList())
-                .equals(List.of(3, 4, 5, 6));
+                .equals(List.of(3, 4, 5));
         assertTrue(containsGreater);
     }
 
 
     @Test
-    public void insert25_checkInnerNodesSplit_checkLeavesListIntegrity() {
-        for (int i = 1; i < 26; i++) {
+    public void insertFrom0to20_checkInnerNodesSplit_checkLeavesListIntegrity() {
+        for (int i = 0; i < 21; i++) {
             tree.insert(i);
         }
 
         var rootLink = (BPlusTree.InnerNode.NodeLink) tree.getRoot().getEntries().first();
         var rootValue = rootLink.getValue();
-        assertEquals(Integer.valueOf(13), rootValue);
+        assertEquals(Integer.valueOf(12), rootValue);
 
         var leftContains = rootLink.getLeft().getEntries()
                 .stream()
                 .map(BPlusTree.Node.Entry::getValue)
                 .collect(Collectors.toList())
-                .equals(List.of(4, 7, 10));
+                .equals(List.of(3, 6, 9));
         assertTrue(leftContains);
 
         var rightContains = rootLink.getRight().getEntries()
                 .stream()
                 .map(BPlusTree.Node.Entry::getValue)
                 .collect(Collectors.toList())
-                .equals(List.of(16, 19, 22));
+                .equals(List.of(15, 18));
         assertTrue(rightContains);
 
 
         var leaf = (BPlusTree.LeafNode) ((BPlusTree.InnerNode.NodeLink) rootLink.getLeft().getEntries().first()).getLeft();
-        for (int i = 0; i < 21; i += 3) {
+        for (int i = 0; i < 19; i += 3) {
             assertEquals(leaf.getEntries().stream()
                     .map(BPlusTree.Node.Entry::getValue)
-                    .collect(Collectors.toList()), List.of(i + 1, i + 2, i + 3));
-            leaf = leaf.getNext();
+                    .collect(Collectors.toList()), List.of(i, i + 1, i + 2));
+            if (i != 18) leaf = leaf.getNext();
         }
 
-        var lastValueEquals25 = leaf.getEntries().last().getValue().equals(25);
-        assertTrue(lastValueEquals25);
+        var lastValueEquals20 = leaf.getEntries().last().getValue().equals(20);
+        assertTrue(lastValueEquals20);
 
     }
 
