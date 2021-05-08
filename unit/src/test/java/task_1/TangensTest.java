@@ -18,6 +18,8 @@ public class TangensTest {
     @Test
     public void CheckZero() {
         assertEquals(Math.tan(0), Tangens.tan_from_sincos(0, eps), eps);
+        assertEquals(Math.tan(eps), Tangens.tan_from_sincos(eps, eps), eps);
+        assertEquals(Math.tan(-eps), Tangens.tan_from_sincos(-eps, eps), eps);
     }
 
     @Test

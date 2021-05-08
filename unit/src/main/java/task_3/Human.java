@@ -21,4 +21,8 @@ public class Human {
         this.heads.addAll(heads);
         location.addHuman(this);
     }
+
+    public Mood getMood() {
+        return this.heads.get(0).mood;
+    }
 }

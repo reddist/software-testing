@@ -33,14 +33,14 @@ public class HumanTest {
     @Test
     public void seeing_unusual_human_change_mood_to_stunned () {
         artur.changeLocation(room);
-        assertSame(Mood.STUNNED, artur.heads.get(0).mood);
+        assertSame(Mood.STUNNED, artur.getMood());
     }
 
     @Test
     public void watching_not_many_humans_makes_first_head_calm() {
         zafol.changeLocation(corridor);
-        assertSame(zafol.heads.get(0).mood, Mood.CALM);
-        assertSame(zafol.heads.get(1).mood, Mood.INFATUATED);
+        assertSame(zafol.getMood(), Mood.CALM);
+        assertSame(zafol.heads.get(1), Mood.INFATUATED);
     }
 
     @Test
@@ -52,10 +52,10 @@ public class HumanTest {
         Human human5 = new Human(1, "human5", place1, new ArrayList<>(Arrays.asList(new Head(Mood.CALM))));
         Human human6 = new Human(1, "human6", corridor, new ArrayList<>(Arrays.asList(new Head(Mood.CALM))));
         artur.changeLocation(place1);
-        assertSame(Mood.CALM, artur.heads.get(0).mood);
+        assertSame(Mood.CALM, artur.getMood());
         artur.changeLocation(corridor);
         human6.changeLocation(place1);
         artur.changeLocation(place1);
-        assertSame(Mood.IRRITATED, artur.heads.get(0).mood);
+        assertSame(Mood.IRRITATED, artur.getMood());
     }
 }
