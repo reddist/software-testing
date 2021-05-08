@@ -40,7 +40,7 @@ public class HumanTest {
     public void watching_not_many_humans_makes_first_head_calm() {
         zafol.changeLocation(corridor);
         assertSame(zafol.getMood(), Mood.CALM);
-        assertSame(zafol.heads.get(1), Mood.INFATUATED);
+        assertSame(zafol.heads.get(1).mood, Mood.INFATUATED);
     }
 
     @Test
